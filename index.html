@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aura Creative | London Web Design & SEO Agency</title>
+  <meta name="description" content="Aura Creative is London's premium web design and SEO agency. We build high-converting websites for small businesses and professional services. From £499." />
+  <meta name="keywords" content="web design London, SEO agency London, small business website, professional website design, local SEO London" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Base ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:        #0a0a14;
+      --bg-2:      #0d0d1a;
+      --surface:   #12121f;
+      --surface-2: #16162a;
+      --purple:    #8b5cf6;
+      --purple-light: #a78bfa;
+      --blue:      #3b82f6;
+      --orange:    #f97316;
+      --text:      #ffffff;
+      --muted:     #94a3b8;
+      --border:    rgba(139,92,246,0.18);
+      --glow-purple: rgba(139,92,246,0.35);
+      --glow-blue:   rgba(59,130,246,0.25);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Manrope', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    h1,h2,h3,h4 { font-family: 'Sora', sans-serif; line-height: 1.15; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ─── Scrollbar ─── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 3px; }
+
+    /* ─── Grid texture overlay ─── */
+    .grid-bg {
+      position: relative;
+    }
+    .grid-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(139,92,246,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(139,92,246,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── Glass card ─── */
+    .glass {
+      background: rgba(18,18,31,0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+
+    /* ─── Buttons ─── */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      font-family: 'Manrope', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 24px rgba(139,92,246,0.4);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--purple-light), var(--purple));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(139,92,246,0.6); }
+    .btn-primary:hover::before { opacity: 1; }
+    .btn-primary span { position: relative; z-index: 1; }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: transparent;
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50px;
+      font-family: 'Manrope', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .btn-ghost:hover {
+      border-color: var(--purple);
+      color: var(--purple-light);
+      background: rgba(139,92,246,0.08);
+    }
+
+    /* ─── Section label ─── */
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(139,92,246,0.12);
+      border: 1px solid rgba(139,92,246,0.3);
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--purple-light);
+      margin-bottom: 20px;
+    }
+    .section-label::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--purple);
+      box-shadow: 0 0 8px var(--purple);
+    }
+
+    /* ─── Fade-in animation ─── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-up.delay-1 { transition-delay: 0.1s; }
+    .fade-up.delay-2 { transition-delay: 0.2s; }
+    .fade-up.delay-3 { transition-delay: 0.3s; }
+    .fade-up.delay-4 { transition-delay: 0.4s; }
+
+    /* ════════════════════════════
+       NAV
+    ════════════════════════════ */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 20px 0;
+      transition: all 0.4s ease;
+    }
+    #navbar.scrolled {
+      background: rgba(10,10,20,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Sora', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
+      background: linear-gradient(135deg, #fff 30%, var(--purple-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #fff; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* ════════════════════════════
+       HERO
+    ════════════════════════════ */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 120px 0 80px;
+    }
+    /* Animated orb */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+    .orb-1 {
+      width: 700px; height: 700px;
+      top: -100px; right: -100px;
+      background: radial-gradient(circle, rgba(139,92,246,0.5) 0%, rgba(59,130,246,0.3) 50%, transparent 75%);
+      animation: orbFloat1 8s ease-in-out infinite;
+    }
+    .orb-2 {
+      width: 400px; height: 400px;
+      bottom: -50px; left: 10%;
+      background: radial-gradient(circle, rgba(59,130,246,0.3) 0%, transparent 70%);
+      animation: orbFloat2 11s ease-in-out infinite;
+    }
+    .orb-3 {
+      width: 250px; height: 250px;
+      top: 30%; left: 35%;
+      background: radial-gradient(circle, rgba(249,115,22,0.15) 0%, transparent 70%);
+      animation: orbFloat3 14s ease-in-out infinite;
+    }
+    @keyframes orbFloat1 {
+      0%,100% { transform: translate(0, 0) scale(1); }
+      33%      { transform: translate(-40px, 30px) scale(1.05); }
+      66%      { transform: translate(20px, -20px) scale(0.97); }
+    }
+    @keyframes orbFloat2 {
+      0%,100% { transform: translate(0, 0); }
+      50%      { transform: translate(30px, -40px); }
+    }
+    @keyframes orbFloat3 {
+      0%,100% { transform: translate(0, 0) scale(1); }
+      50%      { transform: translate(-20px, 30px) scale(1.1); }
+    }
+    /* Particles */
+    .particles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--purple);
+      opacity: 0;
+      animation: particleFade var(--dur) ease-in-out var(--delay) infinite;
+    }
+    @keyframes particleFade {
+      0%   { opacity: 0; transform: translateY(0) scale(0.5); }
+      30%  { opacity: 0.6; }
+      100% { opacity: 0; transform: translateY(-120px) scale(1.2); }
+    }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      background: rgba(139,92,246,0.1);
+      border: 1px solid rgba(139,92,246,0.4);
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--purple-light);
+      margin-bottom: 28px;
+      animation: badgePulse 3s ease-in-out infinite;
+    }
+    .hero-badge .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 8px #22c55e;
+      animation: dotBlink 2s ease-in-out infinite;
+    }
+    @keyframes dotBlink {
+      0%,100% { opacity: 1; }
+      50%      { opacity: 0.4; }
+    }
+    @keyframes badgePulse {
+      0%,100% { box-shadow: 0 0 0 rgba(139,92,246,0); }
+      50%      { box-shadow: 0 0 20px rgba(139,92,246,0.3); }
+    }
+    .hero-headline {
+      font-size: clamp(38px, 5.5vw, 72px);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+    .hero-headline .gradient-text {
+      background: linear-gradient(135deg, var(--purple-light), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 18px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 40px;
+      max-width: 580px;
+      font-weight: 400;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 60px;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .stat-num {
+      font-family: 'Sora', sans-serif;
+      font-size: 30px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff, var(--purple-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-label {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0.5;
+      animation: scrollBounce 2s ease-in-out infinite;
+      z-index: 2;
+    }
+    .scroll-indicator span { font-size: 11px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+    .scroll-indicator svg { width: 20px; color: var(--muted); }
+    @keyframes scrollBounce {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ════════════════════════════
+       SERVICES
+    ════════════════════════════ */
+    #services {
+      padding: 100px 0;
+      position: relative;
+    }
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .section-title {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .service-card {
+      padding: 36px 32px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .service-card.featured {
+      border-color: rgba(139,92,246,0.5);
+      box-shadow: 0 0 40px rgba(139,92,246,0.15), inset 0 0 40px rgba(139,92,246,0.04);
+    }
+    .service-card.featured::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at top, rgba(139,92,246,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .card-badge {
+      position: absolute;
+      top: 20px; right: 20px;
+      padding: 4px 12px;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      border-radius: 50px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    .service-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      background: rgba(139,92,246,0.12);
+      border: 1px solid rgba(139,92,246,0.2);
+    }
+    .service-icon svg { width: 26px; color: var(--purple-light); }
+    .service-name {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .service-price {
+      font-size: 32px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff, var(--purple-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 4px;
+      font-family: 'Sora', sans-serif;
+    }
+    .service-price-label {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .service-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 20px 0;
+    }
+    .service-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .service-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .service-features li::before {
+      content: '';
+      flex-shrink: 0;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: rgba(34,197,94,0.12);
+      border: 1px solid rgba(34,197,94,0.3);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2322c55e' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+      background-size: 12px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    /* ════════════════════════════
+       PROJECTS / WORK
+    ════════════════════════════ */
+    #work {
+      padding: 100px 0;
+      background: var(--bg-2);
+      position: relative;
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+    .project-card {
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .project-card:hover { transform: translateY(-6px); }
+    .project-card:hover .project-overlay { opacity: 1; }
+    /* Browser chrome mock */
+    .browser-bar {
+      background: var(--surface-2);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .browser-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .browser-dot.red   { background: #ff5f57; }
+    .browser-dot.amber { background: #febc2e; }
+    .browser-dot.green { background: #28c840; }
+    .browser-url {
+      flex: 1;
+      height: 22px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 6px;
+      margin-left: 8px;
+    }
+    .project-thumb {
+      height: 220px;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-thumb-1 {
+      background: linear-gradient(135deg, #1a0533 0%, #2d1b69 40%, #0f3460 100%);
+    }
+    .project-thumb-2 {
+      background: linear-gradient(135deg, #0a2a1a 0%, #064e3b 40%, #065f46 100%);
+    }
+    .project-thumb-3 {
+      background: linear-gradient(135deg, #1e0a2e 0%, #5b21b6 50%, #1d4ed8 100%);
+    }
+    .project-thumb-4 {
+      background: linear-gradient(135deg, #0c1a2e 0%, #1e3a5f 50%, #0369a1 100%);
+    }
+    .project-thumb-5 {
+      background: linear-gradient(135deg, #2d0a0a 0%, #7f1d1d 50%, #b91c1c 100%);
+    }
+    .project-thumb-6 {
+      background: linear-gradient(135deg, #0a1a0a 0%, #14532d 50%, #15803d 100%);
+    }
+    /* Fake UI lines inside thumbnails */
+    .thumb-ui {
+      position: absolute;
+      inset: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      opacity: 0.5;
+    }
+    .thumb-ui-bar {
+      height: 8px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.15);
+    }
+    .thumb-ui-bar.short { width: 40%; }
+    .thumb-ui-bar.medium { width: 65%; }
+    .thumb-ui-bar.long { width: 85%; }
+    .thumb-ui-block {
+      height: 60px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.08);
+      margin-top: 4px;
+    }
+    .project-info {
+      padding: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 16px 16px;
+    }
+    .project-name {
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+    .project-cat {
+      font-size: 12px;
+      color: var(--purple-light);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .project-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(139,92,246,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+      border-radius: 16px;
+    }
+    .project-overlay-icon {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: var(--purple);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 30px rgba(139,92,246,0.6);
+    }
+    .project-overlay-icon svg { width: 22px; color: #fff; }
+
+    /* ════════════════════════════
+       TESTIMONIALS
+    ════════════════════════════ */
+    #testimonials {
+      padding: 100px 0;
+      position: relative;
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .testimonial-card {
+      padding: 36px 30px;
+      position: relative;
+      transition: transform 0.3s;
+    }
+    .testimonial-card:hover { transform: translateY(-4px); }
+    .quote-icon {
+      font-size: 60px;
+      line-height: 1;
+      color: var(--purple);
+      opacity: 0.25;
+      font-family: Georgia, serif;
+      position: absolute;
+      top: 20px; right: 24px;
+    }
+    .stars {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 18px;
+    }
+    .stars svg { width: 18px; color: #fbbf24; fill: #fbbf24; }
+    .testimonial-text {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--muted);
+      margin-bottom: 28px;
+      font-style: italic;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .author-avatar {
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Sora', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .author-name {
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .author-role {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ════════════════════════════
+       CONTACT
+    ════════════════════════════ */
+    #contact {
+      padding: 100px 0;
+      background: var(--bg-2);
+      position: relative;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .contact-left h2 {
+      font-size: clamp(28px, 3.5vw, 46px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .contact-left p {
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 40px;
+      font-size: 16px;
+    }
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 15px;
+    }
+    .contact-icon {
+      width: 42px; height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(139,92,246,0.1);
+      border: 1px solid rgba(139,92,246,0.2);
+      flex-shrink: 0;
+    }
+    .contact-icon svg { width: 18px; color: var(--purple-light); }
+    /* Form */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .form-group label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 14px 16px;
+      color: #fff;
+      font-family: 'Manrope', sans-serif;
+      font-size: 15px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      width: 100%;
+      resize: vertical;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(148,163,184,0.5); }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--purple);
+      box-shadow: 0 0 0 3px rgba(139,92,246,0.15);
+    }
+    .form-submit {
+      width: 100%;
+      padding: 16px;
+      font-size: 16px;
+      border-radius: 12px;
+    }
+
+    /* ════════════════════════════
+       FOOTER
+    ════════════════════════════ */
+    footer {
+      padding: 48px 0 32px;
+      border-top: 1px solid var(--border);
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-logo { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 20px; background: linear-gradient(135deg, #fff 30%, var(--purple-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .footer-tagline { font-size: 13px; color: var(--muted); margin-top: 4px; }
+    .footer-links { display: flex; gap: 28px; list-style: none; }
+    .footer-links a { font-size: 14px; color: var(--muted); transition: color 0.2s; }
+    .footer-links a:hover { color: #fff; }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-copy { font-size: 13px; color: var(--muted); }
+    .footer-legal { display: flex; gap: 20px; }
+    .footer-legal a { font-size: 13px; color: var(--muted); transition: color 0.2s; }
+    .footer-legal a:hover { color: var(--purple-light); }
+
+    /* ─── Mobile menu ─── */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(10,10,20,0.98);
+      backdrop-filter: blur(24px);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: 'Sora', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: #fff; }
+    .mobile-close {
+      position: absolute;
+      top: 24px; right: 28px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 32px;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 1024px) {
+      .services-grid,
+      .projects-grid,
+      .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .services-grid,
+      .projects-grid,
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-top { flex-direction: column; gap: 24px; text-align: center; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .hero-stats { flex-direction: column; gap: 20px; }
+      .hero-ctas { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* ─── Success message ─── */
+    .form-success {
+      display: none;
+      padding: 20px;
+      background: rgba(34,197,94,0.1);
+      border: 1px solid rgba(34,197,94,0.3);
+      border-radius: 12px;
+      text-align: center;
+      color: #4ade80;
+      font-weight: 600;
+    }
+    .form-success.show { display: block; }
+
+    /* ════════════════════════════
+       ABOUT
+    ════════════════════════════ */
+    #about {
+      padding: 100px 0;
+      position: relative;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-photo-wrap {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .about-photo-glow {
+      position: absolute;
+      width: 380px; height: 380px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(139,92,246,0.35) 0%, rgba(59,130,246,0.15) 50%, transparent 75%);
+      filter: blur(40px);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      animation: aboutGlow 6s ease-in-out infinite;
+    }
+    @keyframes aboutGlow {
+      0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 0.8; }
+      50%      { transform: translate(-50%,-50%) scale(1.1); opacity: 1; }
+    }
+    .about-photo-frame {
+      position: relative;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      padding: 4px;
+      background: linear-gradient(135deg, var(--purple), var(--blue), var(--purple));
+      box-shadow: 0 0 50px rgba(139,92,246,0.4);
+      animation: frameRotate 8s linear infinite;
+    }
+    @keyframes frameRotate {
+      0%   { box-shadow: 0 0 50px rgba(139,92,246,0.4); }
+      50%  { box-shadow: 0 0 70px rgba(59,130,246,0.5); }
+      100% { box-shadow: 0 0 50px rgba(139,92,246,0.4); }
+    }
+    .about-photo {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      background: var(--surface);
+    }
+    /* Fallback when image missing */
+    .about-photo[src="images/jordan.jpg"]:not([complete]),
+    .about-photo-placeholder {
+      background: linear-gradient(135deg, var(--surface-2), var(--surface));
+    }
+    .about-badge {
+      margin-top: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    .about-badge-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 8px #22c55e;
+      flex-shrink: 0;
+      animation: dotBlink 2s ease-in-out infinite;
+    }
+    .about-values {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .about-value {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .about-value-icon {
+      width: 44px; height: 44px;
+      flex-shrink: 0;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(139,92,246,0.1);
+      border: 1px solid rgba(139,92,246,0.2);
+    }
+    .about-value-icon svg { width: 20px; color: var(--purple-light); }
+    .about-value-title {
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 3px;
+    }
+    .about-value-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    @media (max-width: 900px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+        text-align: center;
+      }
+      .about-photo-wrap { margin: 0 auto; }
+      .about-value { text-align: left; }
+      .section-title[style] { text-align: center !important; }
+    }
+
+    /* ─── Glow line decoration ─── */
+    .glow-line {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--purple), var(--blue), transparent);
+      opacity: 0.4;
+      margin: 0 auto;
+      width: 80%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ MOBILE MENU ══ -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" onclick="closeMobileMenu()">×</button>
+    <a href="#services" onclick="closeMobileMenu()">Services</a>
+    <a href="#work" onclick="closeMobileMenu()">Work</a>
+    <a href="#about" onclick="closeMobileMenu()">About</a>
+    <a href="#testimonials" onclick="closeMobileMenu()">Testimonials</a>
+    <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+    <a href="#contact" class="btn-primary" style="margin-top:8px" onclick="closeMobileMenu()"><span>Get a Free Quote</span></a>
+  </div>
+
+  <!-- ══ NAV ══ -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">Aura Creative</a>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="btn-primary nav-cta"><span>Get a Free Quote</span></a>
+      <div class="hamburger" onclick="openMobileMenu()" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <section id="hero" class="grid-bg">
+    <!-- Orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+
+    <div class="hero-inner">
+      <div class="hero-badge fade-up">
+        <span class="dot"></span>
+        London's Premier Web Design Agency
+      </div>
+      <h1 class="hero-headline fade-up delay-1">
+        Your Website Should Be<br />
+        Your <span class="gradient-text">Best Salesperson.</span>
+      </h1>
+      <p class="hero-sub fade-up delay-2">
+        We design stunning, high-converting websites and SEO strategies for London's small businesses and professional services. Beautiful design that actually brings in customers.
+      </p>
+      <div class="hero-ctas fade-up delay-3">
+        <a href="#contact" class="btn-primary"><span>Start Your Project →</span></a>
+        <a href="#work" class="btn-ghost">See Our Work</a>
+      </div>
+      <div class="hero-stats fade-up delay-4">
+        <div class="stat-item">
+          <div class="stat-num">50+</div>
+          <div class="stat-label">Projects Delivered</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">98%</div>
+          <div class="stat-label">Client Satisfaction</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">3×</div>
+          <div class="stat-label">Avg. Traffic Growth</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ══ SERVICES ══ -->
+  <section id="services" class="grid-bg">
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="section-label fade-up">What We Do</div>
+        <h2 class="section-title fade-up delay-1">Simple, Transparent Pricing</h2>
+        <p class="section-sub fade-up delay-2">No hidden fees. No confusing packages. Just honest pricing for real results.</p>
+      </div>
+
+      <div class="services-grid">
+        <!-- Starter -->
+        <div class="service-card glass fade-up">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <div class="service-name">Starter Website</div>
+          <div class="service-price">£499</div>
+          <div class="service-price-label">One-time payment</div>
+          <div class="service-divider"></div>
+          <ul class="service-features">
+            <li>Professional 1-page website</li>
+            <li>Mobile-first responsive design</li>
+            <li>Fast loading &amp; optimised</li>
+            <li>Contact form included</li>
+            <li>Google Analytics setup</li>
+            <li>1 round of revisions</li>
+          </ul>
+          <a href="#contact" class="btn-ghost" style="width:100%;justify-content:center">Get Started</a>
+        </div>
+
+        <!-- Full Site — featured -->
+        <div class="service-card glass featured fade-up delay-1">
+          <div class="card-badge">Most Popular</div>
+          <div class="service-icon" style="background:rgba(139,92,246,0.2);border-color:rgba(139,92,246,0.4)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+          </div>
+          <div class="service-name">Full Website</div>
+          <div class="service-price">£899</div>
+          <div class="service-price-label">One-time payment</div>
+          <div class="service-divider"></div>
+          <ul class="service-features">
+            <li>Up to 4 custom pages</li>
+            <li>SEO-ready structure</li>
+            <li>CMS integration</li>
+            <li>Google Analytics &amp; Search Console</li>
+            <li>Performance optimised</li>
+            <li>2 rounds of revisions</li>
+          </ul>
+          <a href="#contact" class="btn-primary" style="width:100%;justify-content:center"><span>Get Started</span></a>
+        </div>
+
+        <!-- SEO -->
+        <div class="service-card glass fade-up delay-2">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          </div>
+          <div class="service-name">SEO Growth</div>
+          <div class="service-price">£199</div>
+          <div class="service-price-label">Per month, cancel anytime</div>
+          <div class="service-divider"></div>
+          <ul class="service-features">
+            <li>Local SEO &amp; Google rankings</li>
+            <li>Keyword research &amp; targeting</li>
+            <li>Google Business optimisation</li>
+            <li>Monthly performance reports</li>
+            <li>On-page SEO updates</li>
+            <li>Dedicated account manager</li>
+          </ul>
+          <a href="#contact" class="btn-ghost" style="width:100%;justify-content:center">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="glow-line"></div>
+
+  <!-- ══ ABOUT ══ -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="about-grid">
+        <!-- Photo -->
+        <div class="about-photo-wrap fade-up">
+          <div class="about-photo-glow"></div>
+          <div class="about-photo-frame">
+            <img src="images/jordan.jpg" alt="Jordan — Founder of Aura Creative" class="about-photo" />
+          </div>
+          <div class="about-badge glass">
+            <span class="about-badge-dot"></span>
+            Available for new projects
+          </div>
+        </div>
+        <!-- Content -->
+        <div class="about-content">
+          <div class="section-label fade-up">About Me</div>
+          <h2 class="section-title fade-up delay-1" style="text-align:left;margin-bottom:20px">
+            I Help Small Businesses<br />
+            <span style="background:linear-gradient(135deg,var(--purple-light),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Grow &amp; Thrive Online</span>
+          </h2>
+          <p class="fade-up delay-2" style="color:var(--muted);font-size:16px;line-height:1.8;margin-bottom:20px">
+            Hi, I'm Jordan — founder of Aura Creative. I started this agency with one simple mission: to give local businesses and professional services the same world-class web presence that big corporations take for granted.
+          </p>
+          <p class="fade-up delay-3" style="color:var(--muted);font-size:16px;line-height:1.8;margin-bottom:36px">
+            I genuinely love seeing a small business owner's face light up when their new site goes live and the enquiries start coming in. For me, it's never just about building a pretty website — it's about building a tool that helps you hit your financial goals, attract better clients, and compete with confidence.
+          </p>
+          <div class="about-values fade-up delay-3">
+            <div class="about-value">
+              <div class="about-value-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </div>
+              <div>
+                <div class="about-value-title">Results First</div>
+                <div class="about-value-desc">Every decision is driven by what converts visitors into paying customers.</div>
+              </div>
+            </div>
+            <div class="about-value">
+              <div class="about-value-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div>
+                <div class="about-value-title">Built for Small Business</div>
+                <div class="about-value-desc">Honest pricing. No jargon. Just straightforward work that makes a real difference.</div>
+              </div>
+            </div>
+            <div class="about-value">
+              <div class="about-value-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              </div>
+              <div>
+                <div class="about-value-title">Long-term Growth</div>
+                <div class="about-value-desc">I care about your business succeeding — not just launching a site and moving on.</div>
+              </div>
+            </div>
+          </div>
+          <div class="fade-up delay-4" style="margin-top:36px">
+            <a href="#contact" class="btn-primary"><span>Work With Me →</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="glow-line"></div>
+
+  <!-- ══ WORK ══ -->
+  <section id="work">
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="section-label fade-up">Our Work</div>
+        <h2 class="section-title fade-up delay-1">Projects We're Proud Of</h2>
+        <p class="section-sub fade-up delay-2">Every site we build is crafted to attract, engage, and convert.</p>
+      </div>
+
+      <div class="projects-grid">
+        <!-- Card 1 -->
+        <div class="project-card fade-up">
+          <div class="browser-bar">
+            <span class="browser-dot red"></span>
+            <span class="browser-dot amber"></span>
+            <span class="browser-dot green"></span>
+            <div class="browser-url"></div>
+          </div>
+          <div class="project-thumb project-thumb-1">
+            <div class="thumb-ui">
+              <div class="thumb-ui-bar medium"></div>
+              <div class="thumb-ui-bar short"></div>
+              <div class="thumb-ui-block"></div>
+              <div class="thumb-ui-bar long"></div>
+              <div class="thumb-ui-bar medium"></div>
+            </div>
+          </div>
+          <div class="project-overlay">
+            <div class="project-overlay-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </div>
+          </div>
+          <div class="project-info">
+            <div class="project-name">Henderson Law Associates</div>
+            <div class="project-cat">Legal Services · Full Website</div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="project-card fade-up delay-1">
+          <div class="browser-bar">
+            <span class="browser-dot red"></span>
+            <span class="browser-dot amber"></span>
+            <span class="browser-dot green"></span>
+            <div class="browser-url"></div>
+          </div>
+          <div class="project-thumb project-thumb-2">
+            <div class="thumb-ui">
+              <div class="thumb-ui-bar short"></div>
+              <div class="thumb-ui-block"></div>
+              <div class="thumb-ui-bar long"></div>
+              <div class="thumb-ui-bar medium"></div>
+            </div>
+          </div>
+          <div class="project-overlay">
+            <div class="project-overlay-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </div>
+          </div>
+          <div class="project-info">
+            <div class="project-name">Green Leaf Accountancy</div>
+            <div class="project-cat">Finance · Full Website + SEO</div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="project-card fade-up delay-2">
+          <div class="browser-bar">
+            <span class="browser-dot red"></span>
+            <span class="browser-dot amber"></span>
+            <span class="browser-dot green"></span>
+            <div class="browser-url"></div>
+          </div>
+          <div class="project-thumb project-thumb-3">
+            <div class="thumb-ui">
+              <div class="thumb-ui-bar medium"></div>
+              <div class="thumb-ui-bar long"></div>
+              <div class="thumb-ui-block"></div>
+              <div class="thumb-ui-bar short"></div>
+            </div>
+          </div>
+          <div class="project-overlay">
+            <div class="project-overlay-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </div>
+          </div>
+          <div class="project-info">
+            <div class="project-name">Swift Plumbing London</div>
+            <div class="project-cat">Trades · Starter Website</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center">
+        <a href="#contact" class="btn-ghost fade-up">Discuss Your Project →</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="glow-line"></div>
+
+  <!-- ══ TESTIMONIALS ══ -->
+  <section id="testimonials" class="grid-bg">
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="section-label fade-up">Testimonials</div>
+        <h2 class="section-title fade-up delay-1">What Our Clients Say</h2>
+        <p class="section-sub fade-up delay-2">Real results for real London businesses.</p>
+      </div>
+
+      <div class="testimonials-grid">
+        <!-- T1 -->
+        <div class="testimonial-card glass fade-up">
+          <div class="quote-icon">"</div>
+          <div class="stars">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="testimonial-text">"Aura Creative completely transformed our online presence. Within two months of launching our new site we saw a 40% increase in enquiries. The design is stunning and our clients constantly comment on how professional we look."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">JH</div>
+            <div>
+              <div class="author-name">James Henderson</div>
+              <div class="author-role">Henderson Law Associates, London</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- T2 -->
+        <div class="testimonial-card glass fade-up delay-1">
+          <div class="quote-icon">"</div>
+          <div class="stars">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="testimonial-text">"The SEO work Aura Creative did for us has been incredible. We went from page 3 to the top 3 results for our main keywords in under 4 months. The monthly reports are clear and we can see exactly where our money is going."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">SR</div>
+            <div>
+              <div class="author-name">Sarah Reynolds</div>
+              <div class="author-role">Green Leaf Accountancy, East London</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- T3 -->
+        <div class="testimonial-card glass fade-up delay-2">
+          <div class="quote-icon">"</div>
+          <div class="stars">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="testimonial-text">"As a small plumbing business I was sceptical, but Aura Creative delivered beyond expectations. The starter site looks more professional than companies 10 times our size, and I started getting calls through the website within the first week."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">MT</div>
+            <div>
+              <div class="author-name">Mike Thompson</div>
+              <div class="author-role">Swift Plumbing, South London</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="glow-line"></div>
+
+  <!-- ══ CONTACT ══ -->
+  <section id="contact">
+    <div class="section-inner">
+      <div class="contact-grid">
+        <!-- Left -->
+        <div class="contact-left">
+          <div class="section-label fade-up">Get In Touch</div>
+          <h2 class="fade-up delay-1">Let's Build<br /><span style="background:linear-gradient(135deg,var(--purple-light),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Something Great</span></h2>
+          <p class="fade-up delay-2">Ready to grow your business online? Tell us about your project and we'll get back to you within 24 hours with a custom plan and free quote.</p>
+          <div class="contact-details fade-up delay-3">
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <span>jordan@aura-creative.com</span>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.4 2 2 0 0 1 3.62 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <span>07539 081994</span>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <span>London, United Kingdom</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Form -->
+        <div class="fade-up delay-2">
+          <form class="contact-form glass" style="padding:40px;border-radius:20px" id="contactForm" onsubmit="handleSubmit(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="John Smith" required />
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="john@example.com" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="07700 000000" />
+              </div>
+              <div class="form-group">
+                <label for="service">Service Interested In</label>
+                <select id="service" name="service" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:14px 16px;color:#fff;font-family:Manrope,sans-serif;font-size:15px;outline:none;width:100%;appearance:none;cursor:pointer">
+                  <option value="" style="background:#12121f">Select a service...</option>
+                  <option value="starter" style="background:#12121f">Starter Website — £499</option>
+                  <option value="full" style="background:#12121f">Full Website — £899</option>
+                  <option value="seo" style="background:#12121f">SEO Growth — £199/mo</option>
+                  <option value="bundle" style="background:#12121f">Website + SEO Bundle</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="message">Tell Us About Your Business</label>
+              <textarea id="message" name="message" rows="5" placeholder="What does your business do? What are your goals? Any specific requirements?"></textarea>
+            </div>
+            <button type="submit" class="btn-primary form-submit"><span>Send Message →</span></button>
+            <div class="form-success" id="formSuccess">
+              ✓ Message sent! We'll be in touch within 24 hours.
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <div class="footer-logo">Aura Creative</div>
+          <div class="footer-tagline">London Web Design &amp; SEO Agency</div>
+        </div>
+        <ul class="footer-links">
+          <li><a href="#services">Services</a></li>
+          <li><a href="#work">Work</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2025 Aura Creative. All rights reserved.</div>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ─── Navbar scroll ─── */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    /* ─── Mobile menu ─── */
+    function openMobileMenu()  { document.getElementById('mobileMenu').classList.add('open'); }
+    function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+    /* ─── Scroll animations ─── */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    /* ─── Particles ─── */
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 28; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = Math.random() * 4 + 2;
+      const colors = ['#8b5cf6', '#3b82f6', '#a78bfa', '#60a5fa'];
+      p.style.cssText = `
+        width:${size}px; height:${size}px;
+        left:${Math.random() * 100}%;
+        top:${Math.random() * 100}%;
+        background:${colors[Math.floor(Math.random() * colors.length)]};
+        --dur:${Math.random() * 6 + 5}s;
+        --delay:${Math.random() * 8}s;
+      `;
+      container.appendChild(p);
+    }
+
+    /* ─── Contact form ─── */
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn  = e.target.querySelector('.form-submit');
+      const succ = document.getElementById('formSuccess');
+      btn.disabled = true;
+      btn.querySelector('span').textContent = 'Sending...';
+      setTimeout(() => {
+        btn.style.display = 'none';
+        succ.classList.add('show');
+        e.target.reset();
+      }, 1200);
+    }
+  </script>
+</body>
+</html>
