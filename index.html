@@ -537,9 +537,12 @@
     }
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 24px;
       margin-bottom: 48px;
+    }
+    @media (max-width: 1100px) {
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
     }
     .project-card {
       border-radius: 16px;
@@ -1291,6 +1294,28 @@
       </div>
 
       <div class="projects-grid">
+        <!-- ProFlow Plumbing — real project -->
+        <a class="project-card fade-up" href="https://jordanstephenson.github.io/proflow-plumbing/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;display:block">
+          <div class="browser-bar">
+            <span class="browser-dot red"></span>
+            <span class="browser-dot amber"></span>
+            <span class="browser-dot green"></span>
+            <div class="browser-url"></div>
+          </div>
+          <div class="project-thumb" style="padding:0;overflow:hidden">
+            <img src="images/proflow-plumbing.jpg" alt="ProFlow Plumbing website screenshot" style="width:100%;height:100%;object-fit:cover;display:block" />
+          </div>
+          <div class="project-overlay">
+            <div class="project-overlay-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </div>
+          </div>
+          <div class="project-info">
+            <div class="project-name">ProFlow Plumbing</div>
+            <div class="project-cat">Trades · Starter Website</div>
+          </div>
+        </a>
+
         <!-- Card 1 -->
         <div class="project-card fade-up">
           <div class="browser-bar">
